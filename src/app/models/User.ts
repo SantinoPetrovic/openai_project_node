@@ -3,6 +3,7 @@ import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 interface UserAttributes {
   id: number;
   email: string;
+  password: string;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -11,6 +12,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes {
   public id!: number;
   public email!: string;
+  public password!: string;
 }
 
 export const UserFactory = (sequelize: Sequelize) => {
@@ -26,6 +28,10 @@ export const UserFactory = (sequelize: Sequelize) => {
         allowNull: false,
         unique: true,
       },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     },
     {
       sequelize,
