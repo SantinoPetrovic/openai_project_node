@@ -66,3 +66,10 @@ export const register: RequestHandler = async (req, res) => {
     res.status(500).json({ error: 'Registration failed' });
   }
 };
+
+export const authenticatedUser: RequestHandler = async (req, res) => {
+  res.status(200).json({
+    message: 'You are authenticated!',
+    user: req.user,
+  });
+};
