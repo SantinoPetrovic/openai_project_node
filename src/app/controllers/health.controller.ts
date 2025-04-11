@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import { RequestHandler } from 'express';
 import db from '../models';
 
-export const getHealthStatus = (req: Request, res: Response): void => {
+export const getHealthStatus: RequestHandler = (req, res): void => {
   res.status(200).json({ status: 'ok', uptime: process.uptime() });
 };
 
-export const getDbStatus = async (req: Request, res: Response) => {
+export const getDbStatus: RequestHandler = async (req, res) => {
   try {
     await db.sequelize.authenticate();
     res.status(200).json({ db: 'connected' });

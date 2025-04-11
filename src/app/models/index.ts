@@ -1,17 +1,16 @@
 import { Sequelize } from 'sequelize';
 import { sequelize } from '../config/db';
+import { PromptFactory, Prompt } from './Prompt';
 import { UserFactory, User } from './User';
 
 const db: {
   sequelize: Sequelize;
   User: typeof User;
+  Prompt: typeof Prompt;
 } = {
   sequelize,
   User: UserFactory(sequelize),
+  Prompt: PromptFactory(sequelize),
 };
-
-// Define associations
-/*db.User.hasMany(db.ResumeAnalysis, { foreignKey: 'userId' });
-db.ResumeAnalysis.belongsTo(db.User, { foreignKey: 'userId' });*/
 
 export default db;
