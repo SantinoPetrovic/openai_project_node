@@ -4,6 +4,8 @@ interface UserAttributes {
   id: number;
   email: string;
   password: string;
+  tokensUsed: number;
+  tokenLimit: number;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -12,6 +14,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public id!: number;
   public email!: string;
   public password!: string;
+  public tokensUsed!: number;
+  public tokenLimit!: number;
 }
 
 export const UserFactory = (sequelize: Sequelize) => {
@@ -30,6 +34,16 @@ export const UserFactory = (sequelize: Sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      tokensUsed: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      tokenLimit: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 10000
       }
     },
     {

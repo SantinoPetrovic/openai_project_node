@@ -56,7 +56,12 @@ export const register: RequestHandler = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({ email, password: hashedPassword });
+    const newUser = await User.create({ 
+      email,
+      password: hashedPassword,
+      tokensUsed: 0,
+      tokenLimit: 10000,
+    });
 
     const token = generateToken({ userId: newUser.id, email: newUser.email });
 
