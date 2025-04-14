@@ -33,6 +33,7 @@ export const PromptFactory = (sequelize: Sequelize) => {
     },
     {
       sequelize,
+      timestamps: false,
       modelName: 'Prompt',
       tableName: 'prompts',
     }

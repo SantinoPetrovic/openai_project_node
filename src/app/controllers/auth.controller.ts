@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import db from '../models';
 import { generateToken } from '../utils/auth.utils';
