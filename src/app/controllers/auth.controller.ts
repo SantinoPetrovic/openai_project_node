@@ -1,6 +1,7 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import db from '../models';
+import { AuthenticatedRequest } from '../types/auth';
 import { generateToken } from '../utils/auth.utils';
 
 const { User } = db;
@@ -71,7 +72,7 @@ export const register: RequestHandler = async (req, res) => {
   }
 };
 
-export const authenticatedUser: RequestHandler = async (req, res) => {
+export const authenticatedUser = async (req: AuthenticatedRequest, res: Response) => {
   res.status(200).json({
     message: 'You are authenticated!',
     user: req.user,
