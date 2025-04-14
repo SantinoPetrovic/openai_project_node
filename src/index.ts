@@ -29,7 +29,7 @@ db.sequelize.authenticate()
   .then(() => console.log('Database connected.'))
   .catch(err => {
     console.error('Unable to connect to the database:', err);
-    process.exit(1); // fail fast on critical errors
+    process.exit(1);
   });
 
 app.get('/', (req: Request, res: Response) => {
