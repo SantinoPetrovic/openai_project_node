@@ -4,7 +4,6 @@ interface ConversationAttributes {
   id: number;
   userId: number;
   role: string;
-  messages: string;
   tokensUsed: number;
 }
 
@@ -14,7 +13,6 @@ export class Conversation extends Model<ConversationAttributes, ConversationCrea
   public id!: number;
   public userId!: number;
   public role!: string;
-  public messages!: string;
   public tokensUsed!: number;
 }
 
@@ -32,10 +30,6 @@ export const ConversationFactory = (sequelize: Sequelize) => {
       },
       role: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      messages: {
-        type: DataTypes.TEXT('long'),
         allowNull: false,
       },
       tokensUsed: {
