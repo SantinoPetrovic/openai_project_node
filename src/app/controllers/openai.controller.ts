@@ -9,7 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const startOpenAI = async (req: AuthenticatedRequest, res: Response) => {
+export const startOpenAI = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const { role } = req.body;
 
   if (!role) {

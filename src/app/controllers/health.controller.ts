@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import db from '../models';
 
-export const getHealthStatus: RequestHandler = (req, res): void => {
+export const getHealthStatus: RequestHandler = (req, res) => {
   res.status(200).json({ status: 'ok', uptime: process.uptime() });
 };
 

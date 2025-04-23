@@ -4,7 +4,7 @@ import db from '../models';
 
 const { Conversation, Message } = db;
 
-export const getAllConversations = async (req: AuthenticatedRequest, res: Response) => {
+export const getAllConversations = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const userId = req.user?.userId;
   if (!userId) {
     res.status(401).json({ error: 'Unauthorized' });
@@ -24,7 +24,7 @@ export const getAllConversations = async (req: AuthenticatedRequest, res: Respon
   }
 };
 
-export const getConversationById = async (req: AuthenticatedRequest, res: Response) => {
+export const getConversationById = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const userId = req.user?.userId;
   const { id } = req.params;
 
@@ -51,7 +51,7 @@ export const getConversationById = async (req: AuthenticatedRequest, res: Respon
   }
 };
 
-export const createConversation = async (req: AuthenticatedRequest, res: Response) => {
+export const createConversation = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   const userId = req.user?.userId;
   const { role } = req.body;
 
