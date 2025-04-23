@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/auth';
 import { OpenAI } from 'openai';
 import db from '../models';
@@ -9,7 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const startOpenAI: RequestHandler = async (req: AuthenticatedRequest, res) => {
+export const startOpenAI = async (req: AuthenticatedRequest, res: Response) => {
   const { role } = req.body;
 
   if (!role) {

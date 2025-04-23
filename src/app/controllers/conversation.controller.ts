@@ -1,10 +1,10 @@
-import { RequestHandler } from 'express';
+import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/auth';
 import db from '../models';
 
 const { Conversation, Message } = db;
 
-export const getAllConversations: RequestHandler = async (req: AuthenticatedRequest, res) => {
+export const getAllConversations = async (req: AuthenticatedRequest, res: Response) => {
   const userId = req.user?.userId;
   if (!userId) {
     res.status(401).json({ error: 'Unauthorized' });
@@ -24,7 +24,7 @@ export const getAllConversations: RequestHandler = async (req: AuthenticatedRequ
   }
 };
 
-export const getConversationById: RequestHandler = async (req: AuthenticatedRequest, res) => {
+export const getConversationById = async (req: AuthenticatedRequest, res: Response) => {
   const userId = req.user?.userId;
   const { id } = req.params;
 
@@ -51,7 +51,7 @@ export const getConversationById: RequestHandler = async (req: AuthenticatedRequ
   }
 };
 
-export const createConversation: RequestHandler = async (req: AuthenticatedRequest, res) => {
+export const createConversation = async (req: AuthenticatedRequest, res: Response) => {
   const userId = req.user?.userId;
   const { role } = req.body;
 
