@@ -1,4 +1,4 @@
-# AI-Powered Interviewer Frontend
+# AI-Powered Interviewer Backend
 
 This is a TypeScript + Node.js that communicates with OpenAI to make it play as role as recruiter. It includes full authentication, OpenAI integration, conversation and message tracking, and clean architecture aimed to make.
 
