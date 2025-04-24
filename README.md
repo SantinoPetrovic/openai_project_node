@@ -23,3 +23,45 @@ This is a TypeScript + Node.js that communicates with OpenAI to make it play as 
 - **AI Provider:** OpenAI API
 - **Auth:** JWT
 - **Dev Tools:** ts-node-dev, dotenv, helmet, cors, morgan
+
+## Setup Instructions
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Create .env file
+```bash
+# Server
+WEB_PORT=4000
+FRONTEND_URL=http://localhost:3000
+APP_URL=localhost
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=your_db
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_DIALECT=postgres
+
+# Auth
+JWT_SECRET=your_super_secret_jwt_key
+
+# OpenAI
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-3.5-turbo
+OPENAI_MODEL_PRO=gpt-4
+```
+
+### 4. Start the server
+```bash
+npm run dev
+```
