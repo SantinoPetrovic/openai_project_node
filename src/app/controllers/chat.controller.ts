@@ -3,6 +3,8 @@ import { AuthenticatedRequest } from '../types/auth';
 import { OpenAI } from 'openai';
 import db from '../models';
 
+import sanitizeHtml from 'sanitize-html';
+
 const { Conversation, Message } = db;
 
 const openai = new OpenAI({
@@ -59,10 +61,15 @@ export const chatWithOpenAI = async (req: AuthenticatedRequest, res: Response): 
     const aiContent = response.choices[0]?.message?.content ?? '';
     const tokensUsed = response.usage?.total_tokens ?? 0;
 
+    const sanitizedContent = sanitizeHtml(aiContent, {
+      allowedTags: ['b', 'i', 'strong', 'em', 'code'],
+      allowedAttributes: {},
+    });
+
     const assistantMessage = await Message.create({
       conversationId: parseInt(conversationId, 10),
       role: 'assistant',
-      content: aiContent,
+      content: sanitizedContent,
       tokensUsed,
     });
 
