@@ -75,7 +75,7 @@ export const register: RequestHandler = async (req, res) => {
 
     const token = generateToken({ userId: newUser.id, email: newUser.email, username: newUser.username });
 
-    res.status(201).json({ token });
+    res.status(201).json({ token, user: newUser });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Registration failed' });
