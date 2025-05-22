@@ -7,6 +7,8 @@ interface UserAttributes {
   password: string;
   tokensUsed: number;
   tokenLimit: number;
+  resetToken: String | null;
+  resetTokenExpires: Date | null;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -18,6 +20,8 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public password!: string;
   public tokensUsed!: number;
   public tokenLimit!: number;
+  public resetToken!: String | null;
+  public resetTokenExpires!: Date | null;
 }
 
 export const UserFactory = (sequelize: Sequelize) => {
@@ -50,7 +54,15 @@ export const UserFactory = (sequelize: Sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 10000
-      }
+      },
+      resetToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      },
+      resetTokenExpires: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
     {
       sequelize,

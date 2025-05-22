@@ -1,5 +1,6 @@
 import { RequestHandler, Response } from 'express';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import db from '../models';
 import { AuthenticatedRequest } from '../types/auth';
 import { generateToken } from '../utils/auth.utils';
@@ -44,6 +45,36 @@ export const login: RequestHandler = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Login failed' });
+  }
+};
+
+export const forgotPassword: RequestHandler = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    res.status(400).json({ error: 'Email is required.' });
+    return;
+  }
+
+  try {
+    const existingUser = await User.findOne({ where: { email } });
+
+    if (!existingUser) {
+      res.status(404).json({ error: 'User does not exist' });
+      return;
+    }
+
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const tokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour from now
+
+    existingUser.resetToken = resetToken;
+    existingUser.resetTokenExpires = tokenExpiry;
+    await existingUser.save();
+
+    res.status(200).json({ message: 'If that email exists, a reset link has been sent.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Forgot password failed' });
   }
 };
 
