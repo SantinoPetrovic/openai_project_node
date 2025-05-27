@@ -78,6 +78,29 @@ export const forgotPassword: RequestHandler = async (req, res) => {
   }
 };
 
+export const checkResetToken: RequestHandler = async (req, res) => {
+  const { resetToken } = req.body;
+
+  if (!resetToken) {
+    res.status(400).json({ error: 'Token is required.' });
+    return;
+  }
+
+  try {
+    const existingUser = await User.findOne({ where: { resetToken } });
+
+    if (!existingUser) {
+      res.status(404).json({ error: 'User does not exist' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Token is correct.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Reset token failed' });
+  }
+};
+
 export const register: RequestHandler = async (req, res) => {
   const { email, username, password } = req.body;
 

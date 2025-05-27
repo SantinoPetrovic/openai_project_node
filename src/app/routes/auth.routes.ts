@@ -3,6 +3,7 @@ import {
   login,
   register,
   forgotPassword,
+  checkResetToken,
   authenticatedUser
 } from '../controllers/auth.controller';
 import { authenticateToken } from '../middleware/authenticateToken';
@@ -12,6 +13,7 @@ const router = Router();
 router.post('/login', login);
 router.post('/register', register);
 router.post('/forgot-password', forgotPassword);
+router.post('/check-reset-token', checkResetToken);
 router.get('/private', authenticateToken, authenticatedUser);
 
 export default router;
