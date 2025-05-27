@@ -101,6 +101,39 @@ export const checkResetToken: RequestHandler = async (req, res) => {
   }
 };
 
+export const resetPassword: RequestHandler = async (req, res) => {
+  const { resetToken, newPassword } = req.body;
+
+  if (!resetToken) {
+    res.status(400).json({ error: 'Token is required.' });
+    return;
+  }
+
+  if (!newPassword) {
+    res.status(400).json({ error: 'New password is required.' });
+    return;
+  }
+
+  try {
+    const existingUser = await User.findOne({ where: { resetToken } });
+
+    if (!existingUser) {
+      res.status(404).json({ error: 'User does not exist' });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    existingUser.password = hashedPassword;
+    await existingUser.save();
+
+    res.status(200).json({ message: 'New password is set.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Reset token failed' });
+  }
+};
+
 export const register: RequestHandler = async (req, res) => {
   const { email, username, password } = req.body;
 
